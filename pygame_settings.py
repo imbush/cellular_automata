@@ -31,7 +31,7 @@ class Settings:
 
         #game colors
         self.bg_color = self.gray
-        self.colorscheme = "green_blue" #Change this to "b_w", "green_blue" to change color scheme or "red_green"
+        self.colorscheme = "red_green" #Change this to "b_w", "green_blue" to change color scheme or "red_green"
 
     def get_colors(self, colorscheme, brightness):
         '''Creates range of colors'''

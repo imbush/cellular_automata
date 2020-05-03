@@ -29,7 +29,7 @@ def totallistic_one_dimension(input_row, code: int, k: int):
     return new_row
 
 def toStr(n,base):
-   convertString = "0123456789ABCDEF"
+   convertString = "0123456789"
    if n < base:
       return convertString[n]
    else:
@@ -41,8 +41,8 @@ if __name__ == "__main__":
     buffer = height -1 #A height-1 buffer is required to simulate an infinite grid.
     
     if input("\nPlease input t or e for totallistic or elementary. (t/e):\n").lower().strip() == "t": 
-        k = int(input("How many colors would you like? (integer >= 2):\n").strip())
-        code = int(input("Which code would you like to see?(Please input an integer between 0 and " + str(k**(3*k-2)) + "):\n").strip())
+        k = int(input("How many colors would you like? (integer between 2 and 10, inclusive:\n").strip())
+        code = int(input("Which code would you like to see?(integer between 0 and " + str(k**(3*k-2)) + "):\n").strip())
         first_row = np.zeros((width + 2*buffer), dtype=float) 
         first_row[int((width + 1)/2)-1 + buffer] = 1 # sets center of first row to 1
         arr = np.zeros((height, width + 2*buffer), dtype=float)
@@ -51,7 +51,7 @@ if __name__ == "__main__":
             arr[index] = totallistic_one_dimension(arr[index-1], code, k)
 
     else: #elementary
-        rule = int(input("Which wolfram code would you like to see?(Please input an integer between 0 and 255):\n").strip())
+        rule = int(input("Which wolfram code would you like to see?(integer between 0 and 255):\n").strip())
         #initializes first row and array
         if input("Would you like a random starting row? (y/n): \n").lower().strip() == "n":
             first_row = np.zeros((width + 2*buffer), dtype=int) 
