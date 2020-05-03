@@ -24,14 +24,24 @@ class Settings:
         self.box_width = (self.board_width - self.gap_size * (self.x_num_rect - 1))/self.x_num_rect #box height
         self.box_height = (self.board_height - self.gap_size * (self.y_num_rect - 1))/self.y_num_rect #box width
 
-        self.white = (230, 230, 230) #colors used
+        self.white = 230 #colors used, brightness of brightest white
         self.gray = (80, 80, 80) #May need to change
         self.black = (0, 0, 0)
+        self.b_w = (0,0,0)
 
         #game colors
         self.bg_color = self.gray
-        self.off_color = self.white
-        self.on_color = self.black
+        self.colorscheme = "green_blue" #Change this to "b_w", "green_blue" to change color scheme or "red_green"
+
+    def get_colors(self, colorscheme, brightness):
+        '''Creates range of colors'''
+        if colorscheme == "green_blue":
+            return((0,self.white-brightness, brightness))
+        elif colorscheme == "red_green":
+            return((brightness,self.white - brightness,brightness))
+        elif colorscheme == "b_w":
+            return((brightness,brightness,brightness))
+        
 
     def left_top_coords_of_box(self, boxx,boxy):
         '''converts board coordinates to pixel coordinates'''
@@ -46,8 +56,6 @@ class Settings:
         for boxx in range (self.x_num_rect):
             for boxy in range (self.y_num_rect):
                 left, top = self.left_top_coords_of_box(boxx + 1, boxy + 1) 
-
-                if board[boxy][boxx] == 0:#draws off boxes
-                    pygame.draw.rect(screen, self.off_color,(left, top, self.box_width, self.box_height)) 
-                elif board[boxy][boxx] == 1:#draws on boxes
-                    pygame.draw.rect(screen, self.on_color,(left, top, self.box_width, self.box_height)) 
+                brightness = int((1-board[boxy][boxx]) * self.white) #Brightness of pixel/rectangle
+                pygame.draw.rect(screen, self.get_colors(self.colorscheme, brightness),(left, top, self.box_width, self.box_height)) 
+                
